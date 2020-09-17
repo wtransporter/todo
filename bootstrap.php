@@ -5,6 +5,5 @@ define('APPROOT',ROOT_DIR.'/app');
 
 include 'vendor/autoload.php';
 
-include 'core/Router.php';
 include 'core/database/Connection.php';
 

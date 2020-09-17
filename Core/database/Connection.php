@@ -6,7 +6,11 @@ Use PDO;
 
 class Connection
 {
-
+    /**
+     * Make connection to DB
+     * 
+     * @param $config configuration file
+     */
     public static function make($config)
     {
 
