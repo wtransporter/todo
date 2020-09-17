@@ -4,25 +4,41 @@ namespace App\Core;
 
 class Router
 {
-    protected $uri;
-    protected $routes = [];
+    protected $routes = [
+        'GET' => [],
+        'POST' => []
+    ];
 
-    public function define($routes)
+    public static function load($file)
     {
-        $this->routes = $routes;
+        $router = new static;
+
+        require APPROOT . '/' . $file;
+
+        return $router;
     }
-
-    public function get($uri)
+    
+    public function direct($uri, $requestType)
     {
-        if (! array_key_exists($uri, $this->routes)) {
+        if (! array_key_exists($uri, $this->routes[$requestType])) {
             
             die('Error loadin page!');
 
         }
 
         $this->callAction(
-            ...explode('@', $this->routes[$uri])
+            ...explode('@', $this->routes[$requestType][$uri])
         );
+    }
+
+    public function get($url, $controller)
+    {
+        $this->routes['GET'][$url] = $controller;
+    }
+
+    public function post($url, $controller)
+    {
+        $this->routes['POST'][$url] = $controller;
     }
 
     public function callAction($controller, $method)

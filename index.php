@@ -4,12 +4,6 @@ require 'bootstrap.php';
 
 $config = require 'config.php';
 
-Use App\Core\Router;
+Use App\Core\{Router, Request};
 
-$router = new Router();
-
-include 'routes.php';
-
-$uri = trim($_SERVER['REQUEST_URI'], '/');
-
-$router->get($uri);
+Router::load('routes.php')->direct(Request::uri(), Request::method());
