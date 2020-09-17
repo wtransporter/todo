@@ -1,4 +1,6 @@
-<?php
+<?php include APPROOT . '/views/partials/_header.php'; ?>
 
-    echo "TODO";    
+    <?php echo "TODO"; ?>
+
+<?php include APPROOT . '/views/partials/_footer.php'; ?>
 
