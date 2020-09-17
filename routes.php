@@ -1,7 +1,7 @@
 <?php
 
 $router->define([
-    'home' => 'controllers/index.php',
-    'todo-list' => 'controllers/todo.php'
+    'home' => 'app/controllers/index.php',
+    'todo-list' => 'app/controllers/todo.php'
 ]);
 
