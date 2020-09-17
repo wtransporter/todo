@@ -1,4 +1,4 @@
-<?php include APPROOT . '/views/partials/_header.php'; ?>
+<?php include APPROOT . '/views/partials/header.php'; ?>
 
     <div class="jumbotron">
         <h1 class="display-4">TO DO Application!</h1>
@@ -8,4 +8,4 @@
         <a class="btn btn-primary btn-lg" href="#" role="button">Add TODOs</a>
     </div>
 
-<?php include APPROOT . '/views/partials/_footer.php'; ?>
+<?php include APPROOT . '/views/partials/footer.php'; ?>

@@ -1,6 +1,6 @@
-<?php include APPROOT . '/views/partials/_header.php'; ?>
+<?php include APPROOT . '/views/partials/header.php'; ?>
 
     <?php echo "TODO"; ?>
 
-<?php include APPROOT . '/views/partials/_footer.php'; ?>
+<?php include APPROOT . '/views/partials/footer.php'; ?>
 

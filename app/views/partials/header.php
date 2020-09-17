@@ -8,4 +8,4 @@
 </head>
 <body>
     <div class="container">
-        <?php include APPROOT . '/views/partials/_navigation.php'; ?>
+        <?php include APPROOT . '/views/partials/navigation.php'; ?>
