@@ -1,4 +1,5 @@
 <?php
 
-include 'core/router.php';
+include 'core/Router.php';
+include 'core/database/Connection.php';
 
