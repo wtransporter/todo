@@ -2,7 +2,7 @@
 
     return [
         'database' => [
-            'name' => 'mymvc',
+            'name' => 'todo',
             'user' => 'root',
             'password' => '12345',
             'connection' => 'mysql:host=127.0.0.1',
