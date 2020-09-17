@@ -7,12 +7,12 @@ class PagesController
 
     public function index()
     {
-        include APPROOT.'/views/home.view.php';
+        return view('home');
     }
 
     public function todo()
     {
-        include APPROOT.'/views/todo.view.php';
+        return view('todo');
     }
 
 }
