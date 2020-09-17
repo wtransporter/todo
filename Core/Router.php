@@ -1,6 +1,6 @@
 <?php
 
-
+namespace App\Core;
 
 class Router
 {
@@ -14,13 +14,27 @@ class Router
 
     public function get($uri)
     {
-        if (array_key_exists($uri, $this->routes)) {
-            if (file_exists($this->routes[$uri])) {
-                return require $this->routes[$uri];
-            }
+        if (! array_key_exists($uri, $this->routes)) {
+            
+            die('Error loadin page!');
+
         }
 
-        die("Page couldn't be found !");
+        $this->callAction(
+            ...explode('@', $this->routes[$uri])
+        );
     }
 
+    public function callAction($controller, $method)
+    {
+        $controller = "App\\Controllers\\{$controller}";
+
+        $controller = new $controller;
+
+        if (! method_exists($controller, $method)) {
+            throw new Exception("Error Processing Request.");
+        }
+
+        return $controller->$method();
+    }
 }

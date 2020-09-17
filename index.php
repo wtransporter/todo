@@ -4,6 +4,7 @@ require 'bootstrap.php';
 
 $config = require 'config.php';
 
+Use App\Core\Router;
 
 $router = new Router();
 
