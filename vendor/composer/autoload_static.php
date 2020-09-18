@@ -8,7 +8,10 @@ class ComposerStaticInite2cf4fe34fd66deaefebb1dc12c66b68
 {
     public static $classMap = array (
         'App\\Controllers\\PagesController' => __DIR__ . '/../..' . '/app/controllers/PagesController.php',
+        'App\\Controllers\\TodosController' => __DIR__ . '/../..' . '/app/controllers/TodosController.php',
+        'App\\Core\\App' => __DIR__ . '/../..' . '/Core/App.php',
         'App\\Core\\Database\\Connection' => __DIR__ . '/../..' . '/Core/database/Connection.php',
+        'App\\Core\\Database\\QueryBuilder' => __DIR__ . '/../..' . '/Core/database/QueryBuilder.php',
         'App\\Core\\Request' => __DIR__ . '/../..' . '/Core/Request.php',
         'App\\Core\\Router' => __DIR__ . '/../..' . '/Core/Router.php',
         'ComposerAutoloaderInite2cf4fe34fd66deaefebb1dc12c66b68' => __DIR__ . '/..' . '/composer/autoload_real.php',

@@ -7,7 +7,10 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Controllers\\PagesController' => $baseDir . '/app/controllers/PagesController.php',
+    'App\\Controllers\\TodosController' => $baseDir . '/app/controllers/TodosController.php',
+    'App\\Core\\App' => $baseDir . '/Core/App.php',
     'App\\Core\\Database\\Connection' => $baseDir . '/Core/database/Connection.php',
+    'App\\Core\\Database\\QueryBuilder' => $baseDir . '/Core/database/QueryBuilder.php',
     'App\\Core\\Request' => $baseDir . '/Core/Request.php',
     'App\\Core\\Router' => $baseDir . '/Core/Router.php',
     'ComposerAutoloaderInite2cf4fe34fd66deaefebb1dc12c66b68' => $vendorDir . '/composer/autoload_real.php',

@@ -1,11 +1,13 @@
 <?php
 
+use App\Core\App;
+use App\Core\Database\{Connection, QueryBuilder};
+
+
 define('ROOT_DIR',dirname(__FILE__));
 define('APPROOT',ROOT_DIR.'/app');
 
 include 'vendor/autoload.php';
-
-include 'core/database/Connection.php';
 
 /**
  * Includes required view file
@@ -27,4 +29,15 @@ function view($view, $data = [])
 
     return require $viewPath;
 }
+
+function redirect($page)
+{
+    header('Location: /'. $page);
+}
+
+App::bind('config', require 'config.php');
+
+App::bind('database', new QueryBuilder(
+    Connection::make(App::get('config'))
+));
 
