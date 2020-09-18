@@ -2,6 +2,8 @@
 
 namespace App\Core\Database;
 
+Use PDO;
+
 class QueryBuilder
 {
     protected $pdo;
@@ -30,6 +32,15 @@ class QueryBuilder
         } else {
             return false;
         }
+    }
+
+    public function getAll($table)
+    {
+        $statement = $this->pdo->prepare("SELECT * FROM {$table}");
+
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_OBJ);
     }
 
 }

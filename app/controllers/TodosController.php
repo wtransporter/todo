@@ -8,6 +8,13 @@ use App\Core\App;
 class TodosController
 {
 
+    public function index()
+    {
+        $todos = App::get('database')->getAll('tasks');
+
+        return view('todo', compact('todos'));
+    }
+
     public function store()
     {
         $data = [

@@ -1,5 +1,5 @@
 <?php
 
 $router->get('', 'PagesController@index');
-$router->get('todo-list', 'PagesController@todo');
+$router->get('todo-list', 'TodosController@index');
 $router->post('todos', 'TodosController@store');
