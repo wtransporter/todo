@@ -31,14 +31,26 @@ class Router
      */
     public function direct($uri, $requestType)
     {
-        if (! array_key_exists($uri, $this->routes[$requestType])) {
+        $newUrl = $uri;
+        if (! strrpos($uri, '/', -1) == false) {
+            $newUri = trim(substr($uri, 0, strrpos($uri, '/', -1)), '/');
+            if (isset($this->routes[$requestType][$newUri]['param'])) {
+                $newUrl = $newUri;
+                $parameter = trim(substr($uri, strrpos($uri, '/', -1)), '/');
+            }
+        }
+
+        if (! array_key_exists($newUrl, $this->routes[$requestType])) {
             
             die('Error loadin page!');
 
         }
 
+        $data = explode('@', $this->routes[$requestType][$newUrl]['controller']);
+        $data[] = $parameter ?? '';
+
         $this->callAction(
-            ...explode('@', $this->routes[$requestType][$uri])
+            ...$data
         );
     }
 
@@ -50,7 +62,19 @@ class Router
      */
     public function get($url, $controller)
     {
-        $this->routes['GET'][$url] = $controller;
+        if (strpos($url, '{', 0) == false) {
+            $this->routes['GET'][$url] = [
+                'controller' => $controller
+            ];
+        } else {
+            $uri = trim(substr($url, 0, strrpos($url, '{', -1)), '/');
+            $param = trim(substr($url, strrpos($url, '{', -1)), '/{}');
+            
+            $this->routes['GET'][$uri] = [
+                'controller' => $controller,
+                'param' => $param
+            ];
+        }
     }
 
     /**
@@ -61,7 +85,19 @@ class Router
      */
     public function post($url, $controller)
     {
-        $this->routes['POST'][$url] = $controller;
+        if (strpos($url, '{', 0) == false) {
+            $this->routes['POST'][$url] = [
+                'controller' => $controller
+            ];
+        } else {
+            $uri = trim(substr($url, 0, strrpos($url, '{', -1)), '/');
+            $param = trim(substr($url, strrpos($url, '{', -1)), '/{}');
+            
+            $this->routes['POST'][$uri] = [
+                'controller' => $controller,
+                'param' => $param
+            ];
+        }
     }
 
     /**
@@ -70,7 +106,7 @@ class Router
      * @param $controller
      * @param $method
      */
-    public function callAction($controller, $method)
+    public function callAction($controller, $method, $param = '')
     {
         $controller = "App\\Controllers\\{$controller}";
 
@@ -80,6 +116,6 @@ class Router
             throw new Exception("Error Processing Request.");
         }
 
-        return $controller->$method();
+        return $controller->$method($param);
     }
 }
