@@ -7,6 +7,7 @@ Use PDO;
 class QueryBuilder
 {
     protected $pdo;
+    protected $stmt;
 
     public function __construct($pdo)
     {
@@ -15,32 +16,60 @@ class QueryBuilder
 
     public function save($table, $data)
     {
-        $fields = '';
-        foreach ($data as $key => $value) {
-            $fields .= "{$key} = :{$key},";
-        }
-        $fields = trim($fields, ',');
+        $fields = $this->sqlFields($data);
 
-        $statement = $this->pdo->prepare("INSERT INTO {$table} SET {$fields}");
+        $this->stmt = $this->pdo->prepare("INSERT INTO {$table} SET {$fields}");
 
-        foreach ($data as $key => $value) {
-            $statement->bindParam(":{$key}", $value);
-        }
+        $this->bindFields($this->stmt, $data);
 
-        if ($statement->execute()) {
+        $this->execute();
+    }
+
+    public function update($table, $data, $id)
+    {
+        $fields = $this->sqlFields($data);
+
+        $this->stmt = $this->pdo->prepare("UPDATE `{$table}` SET {$fields} WHERE `id` = :id");
+
+        $this->stmt->bindParam(':id', $id);
+
+        $this->bindFields($this->stmt, $data);
+
+        $this->execute();
+    }
+
+    public function getAll($table)
+    {
+        $this->stmt = $this->pdo->prepare("SELECT * FROM {$table}");
+
+        $this->stmt->execute();
+
+        return $this->stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function execute()
+    {
+        if ($this->stmt->execute()) {
             return true;
         } else {
             return false;
         }
     }
-
-    public function getAll($table)
+    public function bindFields($stmt, $data)
     {
-        $statement = $this->pdo->prepare("SELECT * FROM {$table}");
+        foreach ($data as $key => $value) {
+            $key = ':'.$key;
+            $this->stmt->bindValue($key, $value);
+        }
+    }
 
-        $statement->execute();
-
-        return $statement->fetchAll(PDO::FETCH_OBJ);
+    public function sqlFields(array $data)
+    {
+        $fields = '';
+        foreach ($data as $key => $value) {
+            $fields .= "{$key} = :{$key},";
+        }
+        return trim($fields, ',');
     }
 
 }

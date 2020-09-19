@@ -13,10 +13,10 @@
 		</div>
 	</div>
 </form>
-
+<hr>
 <?php foreach ($todos as $todo) : ?>
 		
-	<form method="POST" action="todo/update/<?php echo $todo->id; ?>">
+	<form method="POST" action="todos/update/<?php echo $todo->id; ?>">
 		<div class="form-row align-items-center">
 			<div class="col-md-6">
 			<label class="sr-only" for="title">Title</label>
@@ -25,9 +25,12 @@
 			</div>
 			<div class="col-auto">
 				<div class="form-check mb-2">
-					<input class="form-check-input" name="finished"
+					<input onChange="this.form.submit()"
+						class="form-check-input" name="finished"
 						type="checkbox" id="finished" <?php echo $todo->finished ? 'checked' : ''; ?>>
-					<label class="form-check-label" for="finished"></label>
+					<label class="form-check-label" for="finished">
+					<?php echo $todo->finished ? 'Finished' : 'Pending'; ?>
+					</label>
 				</div>
 			</div>
 
