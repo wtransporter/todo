@@ -30,6 +30,11 @@ function view($view, $data = [])
     return require $viewPath;
 }
 
+function authUser()
+{
+    return isset($_SESSION['user']);
+}
+
 function redirect($page)
 {
     header('Location: /'. $page);

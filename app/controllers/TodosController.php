@@ -8,6 +8,12 @@ use App\Core\App;
 class TodosController
 {
     protected $table = 'tasks';
+
+    public function __construct() {
+        if (! authUser()) {
+            return redirect('home');
+        }
+    }
     
     public function index()
     {
