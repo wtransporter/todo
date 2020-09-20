@@ -29,14 +29,19 @@ class TodosController
 
     public function update($id)
     {
-        $finished = isset($_POST['finished']) ? '1' : '0';
-
         $data = [
             'title' => $_POST['title'],
-            'finished' => $finished
+            'finished' => isset($_POST['finished']) ? '1' : '0'
         ];
 
         App::get('database')->update($this->table, $data, $id);
+
+        return redirect('todo-list');
+    }
+
+    public function destroy($id)
+    {
+        App::get('database')->delete($this->table, $id);
 
         return redirect('todo-list');
     }

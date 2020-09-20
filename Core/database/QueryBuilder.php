@@ -38,6 +38,15 @@ class QueryBuilder
         $this->execute();
     }
 
+    public function delete($table, $id)
+    {
+        $this->stmt = $this->pdo->prepare("DELETE FROM {$table} WHERE id = :id");
+
+        $this->stmt->bindParam(':id', $id, PDO::PARAM_INT);
+
+        $this->execute();
+    }
+
     public function getAll($table)
     {
         $this->stmt = $this->pdo->prepare("SELECT * FROM {$table}");
