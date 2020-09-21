@@ -11,14 +11,14 @@
 			<li class="nav-item active">
 				<a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
 			</li>
-			<?php if (authUser()) : ?>
+			<?php if (isLoggedIn()) : ?>
 			<li class="nav-item">
 				<a class="nav-link" href="/todo-list">ToDo</a>
 			</li>
 			<?php endif; ?>
 		</ul>
 		<ul class="navbar-nav ml-auto">
-			<?php if (! authUser()) : ?>
+			<?php if (! isLoggedIn()) : ?>
 				<li class="nav-item">
 					<a class="nav-link" href="login">Login</a>
 				</li>
@@ -28,13 +28,12 @@
 			<?php else : ?>
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Loged in user
+					<?php echo authUser('user_name'); ?>
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="#">Logout</a>
-						<a class="dropdown-item" href="#">Another action</a>
+						<a class="dropdown-item" href="logout">Logout</a>
 					<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="#">Something else here</a>
+						<a class="dropdown-item" href="#">Profile</a>
 					</div>
 				</li>
 			<?php endif; ?>

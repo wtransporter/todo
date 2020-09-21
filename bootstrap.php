@@ -1,6 +1,7 @@
 <?php
 
 use App\Core\App;
+use App\Core\Session;
 use App\Core\Database\{Connection, QueryBuilder};
 
 
@@ -8,6 +9,8 @@ define('ROOT_DIR',dirname(__FILE__));
 define('APPROOT',ROOT_DIR.'/app');
 
 include 'vendor/autoload.php';
+
+Session::start();
 
 /**
  * Includes required view file
@@ -30,7 +33,12 @@ function view($view, $data = [])
     return require $viewPath;
 }
 
-function authUser()
+function authUser($key)
+{
+    return Session::get($key);
+}
+
+function isLoggedIn()
 {
     return isset($_SESSION['user']);
 }

@@ -3,14 +3,14 @@
 namespace App\Controllers;
 
 use App\Core\App;
-
+use App\Models\Todos;
 
 class TodosController
 {
     protected $table = 'tasks';
 
     public function __construct() {
-        if (! authUser()) {
+        if (! isLoggedIn()) {
             return redirect('home');
         }
     }

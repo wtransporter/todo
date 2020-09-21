@@ -73,11 +73,49 @@ class QueryBuilder
      */
     public function getAll($table)
     {
-        $this->stmt = $this->pdo->prepare("SELECT * FROM {$table}");
+        $this->stmt = $this->pdo->prepare("SELECT * FROM {$table} ORDER BY created_at ASC");
 
         $this->stmt->execute();
 
         return $this->stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    /**
+     * Fetch record by email
+     * 
+     * @param $table Database table name
+     * @param string $email
+     */
+    public function getByEmail($email)
+    {
+        $this->stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = :email LIMIT 1");
+
+        $this->stmt->bindParam(':email', $email, PDO::PARAM_STR);
+
+        $this->stmt->execute();
+
+        return $this->stmt->fetch(PDO::FETCH_OBJ);
+    }
+
+    /**
+     * Fetch single record
+     * 
+     * @param $table Database table name
+     * @param string $email
+     */
+    public function getSingle($table, $data)
+    {
+        $fields = $this->sqlFields($data);
+
+        $fields = str_replace(',', ' AND ', $fields);
+        
+        $this->stmt = $this->pdo->prepare("SELECT * FROM {$table} WHERE {$fields} LIMIT 1");
+
+        $this->bindFields($this->stmt, $data);
+
+        $this->stmt->execute();
+
+        return $this->stmt->fetch(PDO::FETCH_OBJ);
     }
 
     public function execute()
