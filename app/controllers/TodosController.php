@@ -21,7 +21,7 @@ class TodosController
      */
     public function index()
     {
-        $todos = App::get('database')->getAll($this->table);
+        $todos = App::get('database')->getAll($this->table, authUser('user'));
 
         return view('todo', compact('todos'));
     }
@@ -34,7 +34,8 @@ class TodosController
     public function store()
     {
         $data = [
-            'title' => $_POST['title']
+            'title' => $_POST['title'],
+            'user_id' => authUser('user')
         ];
 
         App::get('database')->save($this->table, $data);

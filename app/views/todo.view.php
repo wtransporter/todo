@@ -28,7 +28,7 @@
 				<div class="form-check mb-2">
 					<input onChange="this.form.submit()"
 						class="form-check-input" name="finished"
-						type="checkbox" id="finished" <?php echo $todo->finished ? 'checked' : ''; ?>>
+						type="checkbox" id="finished<?php echo $todo->id; ?>" <?php echo $todo->finished ? 'checked' : ''; ?>>
 					<label class="form-check-label" for="finished">
 					<?php echo $todo->finished ? 'Finished' : 'Pending'; ?>
 					</label>

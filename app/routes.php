@@ -10,3 +10,4 @@ $router->get('logout', 'LoginController@logout');
 $router->get('login', 'LoginController@create');
 $router->post('login', 'LoginController@login');
 $router->get('register', 'RegisterController@create');
+$router->post('register', 'RegisterController@register');

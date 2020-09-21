@@ -2,6 +2,13 @@
 
 <div class="p-3">
     <div class="col-6 offset-3 justify-content-center">
+        <?php if (isset($data['errors'])) : ?>
+            <div  class="alert alert-danger">
+                <?php foreach ($data['errors'] as $error) : ?>
+                <span><?php echo $error; ?></span>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
         <form action="register" method="POST" class="p-4 bg-light">
             <div class="form-group">
                 <label for="first_name">First Name</label>

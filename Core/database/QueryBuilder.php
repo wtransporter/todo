@@ -28,7 +28,7 @@ class QueryBuilder
 
         $this->bindFields($this->stmt, $data);
 
-        $this->execute();
+        return $this->execute();
     }
 
     /**
@@ -71,9 +71,12 @@ class QueryBuilder
      * 
      * @param $table Database table name
      */
-    public function getAll($table)
+    public function getAll($table, $userId)
     {
-        $this->stmt = $this->pdo->prepare("SELECT * FROM {$table} ORDER BY created_at ASC");
+        $this->stmt = $this->pdo->prepare("SELECT * FROM {$table} 
+            where `user_id` = :user_id ORDER BY created_at ASC");
+
+        $this->stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
 
         $this->stmt->execute();
 
@@ -95,6 +98,27 @@ class QueryBuilder
         $this->stmt->execute();
 
         return $this->stmt->fetch(PDO::FETCH_OBJ);
+    }
+
+
+     /**
+     * Find user for login
+     * 
+     * @param $table Database table name
+     * @param array $data
+     */
+    public function login($table, $data)
+    {
+        $password = $data['password'];
+        unset($data['password']);
+        $row = $this->getSingle($table, $data);
+
+        $hashed_password = $row->password;
+        if(password_verify($password, $hashed_password)){
+            return $row;
+        } else {
+            return False;
+        }
     }
 
     /**

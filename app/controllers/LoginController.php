@@ -43,7 +43,7 @@ class LoginController
         unset($loginData['errors']);
 
         if (empty($data['errors'])) {
-            $loggedInUser = App::get('database')->getSingle('users', $loginData);
+            $loggedInUser = App::get('database')->login('users', $loginData);
 
             if ($loggedInUser) {
                 $this->createUserSession($loggedInUser);
@@ -54,8 +54,6 @@ class LoginController
         } else {
             return view('auth.login', $data);
         }
-
-
     }
 
     public function logout()
