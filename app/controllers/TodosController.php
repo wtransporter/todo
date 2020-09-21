@@ -14,7 +14,11 @@ class TodosController
             return redirect('home');
         }
     }
-    
+
+    /**
+     * Display a listing of the resource.
+     *
+     */
     public function index()
     {
         $todos = App::get('database')->getAll($this->table);
@@ -22,6 +26,11 @@ class TodosController
         return view('todo', compact('todos'));
     }
 
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     */
     public function store()
     {
         $data = [
@@ -33,6 +42,11 @@ class TodosController
         return redirect('todo-list');
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     */
     public function update($id)
     {
         $data = [
@@ -45,6 +59,11 @@ class TodosController
         return redirect('todo-list');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     */
     public function destroy($id)
     {
         App::get('database')->delete($this->table, $id);

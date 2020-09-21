@@ -14,6 +14,12 @@ class QueryBuilder
         $this->pdo = $pdo;
     }
 
+    /**
+     * Store data to database table
+     * 
+     * @param $table Database table name
+     * @param array $data Array of data with coresponding fields
+     */
     public function save($table, $data)
     {
         $fields = $this->sqlFields($data);
@@ -25,7 +31,14 @@ class QueryBuilder
         $this->execute();
     }
 
-    public function update($table, $data, $id)
+    /**
+     * Update record
+     * 
+     * @param $table Database table name
+     * @param array $data Array of data with coresponding fields
+     * @param int $id Primary key of the record
+     */
+    public function update($table, array $data, $id)
     {
         $fields = $this->sqlFields($data);
 
@@ -38,6 +51,12 @@ class QueryBuilder
         $this->execute();
     }
 
+    /**
+     * Removes record from DB
+     * 
+     * @param $table Database table name
+     * @param int $id Primary key of the record
+     */
     public function delete($table, $id)
     {
         $this->stmt = $this->pdo->prepare("DELETE FROM {$table} WHERE id = :id");
@@ -47,6 +66,11 @@ class QueryBuilder
         $this->execute();
     }
 
+    /**
+     * Fetch all records
+     * 
+     * @param $table Database table name
+     */
     public function getAll($table)
     {
         $this->stmt = $this->pdo->prepare("SELECT * FROM {$table}");
@@ -64,7 +88,14 @@ class QueryBuilder
             return false;
         }
     }
-    public function bindFields($stmt, $data)
+
+    /**
+     * Bind values from given array
+     * 
+     * @param $stmt Database prepared statement
+     * @param array $data Array of data with coresponding fields
+     */
+    public function bindFields($stmt, array $data)
     {
         foreach ($data as $key => $value) {
             $key = ':'.$key;
@@ -72,6 +103,13 @@ class QueryBuilder
         }
     }
 
+    /**
+     * Extract fields from given array
+     * 
+     * @param array $data
+     * 
+     * @return string
+     */
     public function sqlFields(array $data)
     {
         $fields = '';
